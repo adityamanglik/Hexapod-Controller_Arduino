@@ -30,11 +30,10 @@
 
   int initiateB=90,initiateJ=120,initiateL=10;   //Initial Angle Values
   int ini_pos[6][3];        //Declaration Of Initial(Current) Position Array
-  int i=0,j=0,pos=0;
-  //for(;i<6;i++)
-  //for(;j<3;j++)          //Useless
-  //ini_pos[i][j]=90;
-void movemotor(char ident1,char ident2,int fin_ang)
+  int i=0,j=0,pos=0,dly=10;   //Declaration of Delay Value
+ 
+  
+void movemotor(char ident1,int ident2,int fin_ang)    //Moves Motor, Identified and by the Given Angle
 {
   switch(ident1)
   {
@@ -42,41 +41,299 @@ void movemotor(char ident1,char ident2,int fin_ang)
     {
       switch(ident2)
       {
-        case '1': {B_1.write(fin_ang);ini_pos[0][0]=fin_ang;break;}
-        case '2': {B_2.write(fin_ang);ini_pos[0][1]=fin_ang;break;}
-        case '3': {B_3.write(-fin_ang);ini_pos[0][2]=fin_ang;break;}
-        case '4': {B_4.write(-fin_ang);ini_pos[0][3]=fin_ang;break;}
-        case '5': {B_5.write(-fin_ang);ini_pos[0][4]=fin_ang;break;}
-        case '6': {B_6.write(fin_ang);ini_pos[0][5]=fin_ang;break;}
+        case '1': {
+                    if(ini_pos[0][0]==fin_ang) break;
+                    else if(ini_pos[0][0]<fin_ang)
+                    for(pos=ini_pos[0][0];pos<=fin_ang;pos++)
+                    {
+                      B_1.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[0][0]>fin_ang)
+                    for(pos=ini_pos[0][0];pos>=fin_ang;pos--)
+                    {
+                      B_1.write(pos);delay(dly);
+                    }
+                    ini_pos[0][0]=fin_ang;break;
+                  }
+        case '2': {
+                    if(ini_pos[0][1]==fin_ang) break;
+                    else if(ini_pos[0][1]<fin_ang)
+                    for(pos=ini_pos[0][1];pos<=fin_ang;pos++)
+                    {
+                      B_2.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[0][1]>fin_ang)
+                    for(pos=ini_pos[0][1];pos>=fin_ang;pos--)
+                    {
+                      B_2.write(pos);delay(dly);
+                    }
+                    ini_pos[0][1]=fin_ang;break;
+                  }
+        case '3': {
+                    if(ini_pos[0][2]==fin_ang) break;
+                    else if(ini_pos[0][2]<fin_ang)
+                    for(pos=ini_pos[0][2];pos<=fin_ang;pos++)
+                    {
+                      B_3.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[0][2]>fin_ang)
+                    for(pos=ini_pos[0][2];pos>=fin_ang;pos--)
+                    {
+                      B_3.write(pos);delay(dly);
+                    }
+                    ini_pos[0][2]=fin_ang;break;
+                  }
+        case '4': {
+                    if(ini_pos[0][3]==fin_ang) break;
+                    else if(ini_pos[0][3]<fin_ang)
+                    for(pos=ini_pos[0][3];pos<=fin_ang;pos++)
+                    {
+                      B_4.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[0][3]>fin_ang)
+                    for(pos=ini_pos[0][3];pos>=fin_ang;pos--)
+                    {
+                      B_4.write(pos);delay(dly);
+                    }
+                    ini_pos[0][3]=fin_ang;break;
+                  }
+        case '5':{
+                    if(ini_pos[0][4]==fin_ang) break;
+                    else if(ini_pos[0][4]<fin_ang)
+                    for(pos=ini_pos[0][4];pos<=fin_ang;pos++)
+                    {
+                      B_5.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[0][4]>fin_ang)
+                    for(pos=ini_pos[0][4];pos>=fin_ang;pos--)
+                    {
+                      B_5.write(pos);delay(dly);
+                    }
+                    ini_pos[0][4]=fin_ang;break;
+                  }
+        case '6': {
+                    if(ini_pos[0][5]==fin_ang) break;
+                    else if(ini_pos[0][5]<fin_ang)
+                    for(pos=ini_pos[0][5];pos<=fin_ang;pos++)
+                    {
+                      B_6.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[0][5]>fin_ang)
+                    for(pos=ini_pos[0][5];pos>=fin_ang;pos--)
+                    {
+                      B_6.write(pos);delay(dly);
+                    }
+                    ini_pos[0][5]=fin_ang;break;
+                  }
       }
     }
+    
     case 'J': 
     {
       switch(ident2)
       {
-        case '1': {J_1.write(fin_ang);ini_pos[1][0]=fin_ang;break;}
-        case '2': {J_2.write(fin_ang);ini_pos[1][1]=fin_ang;break;}
-        case '3': {J_3.write(fin_ang);ini_pos[1][2]=fin_ang;break;}
-        case '4': {J_4.write(fin_ang);ini_pos[1][3]=fin_ang;break;}
-        case '5': {J_5.write(fin_ang);ini_pos[1][4]=fin_ang;break;}
-        case '6': {J_6.write(fin_ang);ini_pos[1][5]=fin_ang;break;}
+        case '1': {
+                    if(ini_pos[1][0]==fin_ang) break;
+                    else if(ini_pos[1][0]<fin_ang)
+                    for(pos=ini_pos[1][0];pos<=fin_ang;pos++)
+                    {
+                      J_1.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[1][0]>fin_ang)
+                    for(pos=ini_pos[1][0];pos>=fin_ang;pos--)
+                    {
+                      J_1.write(pos);delay(dly);
+                    }
+                    ini_pos[1][0]=fin_ang;break;
+                  }
+        case '2': {
+                    if(ini_pos[1][1]==fin_ang) break;
+                    else if(ini_pos[1][1]<fin_ang)
+                    for(pos=ini_pos[1][1];pos<=fin_ang;pos++)
+                    {
+                      J_2.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[1][1]>fin_ang)
+                    for(pos=ini_pos[1][1];pos>=fin_ang;pos--)
+                    {
+                      J_2.write(pos);delay(dly);
+                    }
+                    ini_pos[1][1]=fin_ang;break;
+                  }
+        case '3': {
+                    if(ini_pos[1][2]==fin_ang) break;
+                    else if(ini_pos[1][2]<fin_ang)
+                    for(pos=ini_pos[1][2];pos<=fin_ang;pos++)
+                    {
+                      J_3.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[1][2]>fin_ang)
+                    for(pos=ini_pos[1][2];pos>=fin_ang;pos--)
+                    {
+                      J_3.write(pos);delay(dly);
+                    }
+                    ini_pos[1][2]=fin_ang;break;
+                  }
+        case '4': {
+                    if(ini_pos[1][3]==fin_ang) break;
+                    else if(ini_pos[1][3]<fin_ang)
+                    for(pos=ini_pos[1][3];pos<=fin_ang;pos++)
+                    {
+                      J_4.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[1][3]>fin_ang)
+                    for(pos=ini_pos[1][3];pos>=fin_ang;pos--)
+                    {
+                      J_4.write(pos);delay(dly);
+                    }
+                    ini_pos[1][3]=fin_ang;break;
+                  }
+        case '5':{
+                    if(ini_pos[1][4]==fin_ang) break;
+                    else if(ini_pos[1][4]<fin_ang)
+                    for(pos=ini_pos[1][4];pos<=fin_ang;pos++)
+                    {
+                      J_5.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[1][4]>fin_ang)
+                    for(pos=ini_pos[1][4];pos>=fin_ang;pos--)
+                    {
+                      J_5.write(pos);delay(dly);
+                    }
+                    ini_pos[1][4]=fin_ang;break;
+                  }
+        case '6': {
+                    if(ini_pos[1][5]==fin_ang) break;
+                    else if(ini_pos[1][5]<fin_ang)
+                    for(pos=ini_pos[1][5];pos<=fin_ang;pos++)
+                    {
+                      J_6.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[1][5]>fin_ang)
+                    for(pos=ini_pos[1][5];pos>=fin_ang;pos--)
+                    {
+                      J_6.write(pos);delay(dly);
+                    }
+                    ini_pos[1][5]=fin_ang;break;
+                  }
       }
     }
-    case 'L': 
+        case 'L': 
     {
       switch(ident2)
       {
-        case '1': {L_1.write(fin_ang);ini_pos[2][0]=fin_ang;break;}
-        case '2': {L_2.write(fin_ang);ini_pos[2][1]=fin_ang;break;}
-        case '3': {L_3.write(fin_ang);ini_pos[2][2]=fin_ang;break;}
-        case '4': {L_4.write(fin_ang);ini_pos[2][3]=fin_ang;break;}
-        case '5': {L_5.write(fin_ang);ini_pos[2][4]=fin_ang;break;}
-        case '6': {L_6.write(fin_ang);ini_pos[2][5]=fin_ang;break;}
+        case '1': {
+                    if(ini_pos[2][0]==fin_ang) break;
+                    else if(ini_pos[2][0]<fin_ang)
+                    for(pos=ini_pos[2][0];pos<=fin_ang;pos++)
+                    {
+                      L_1.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[2][0]>fin_ang)
+                    for(pos=ini_pos[2][0];pos>=fin_ang;pos--)
+                    {
+                      L_1.write(pos);delay(dly);
+                    }
+                    ini_pos[2][0]=fin_ang;break;
+                  }
+        case '2': {
+                    if(ini_pos[2][1]==fin_ang) break;
+                    else if(ini_pos[2][1]<fin_ang)
+                    for(pos=ini_pos[2][1];pos<=fin_ang;pos++)
+                    {
+                      L_2.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[2][1]>fin_ang)
+                    for(pos=ini_pos[2][1];pos>=fin_ang;pos--)
+                    {
+                      L_2.write(pos);delay(dly);
+                    }
+                    ini_pos[2][1]=fin_ang;break;
+                  }
+        case '3': {
+                    if(ini_pos[2][2]==fin_ang) break;
+                    else if(ini_pos[2][2]<fin_ang)
+                    for(pos=ini_pos[2][2];pos<=fin_ang;pos++)
+                    {
+                      L_3.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[2][2]>fin_ang)
+                    for(pos=ini_pos[2][2];pos>=fin_ang;pos--)
+                    {
+                      L_3.write(pos);delay(dly);
+                    }
+                    ini_pos[2][2]=fin_ang;break;
+                  }
+        case '4': {
+                    if(ini_pos[2][3]==fin_ang) break;
+                    else if(ini_pos[2][3]<fin_ang)
+                    for(pos=ini_pos[2][3];pos<=fin_ang;pos++)
+                    {
+                      L_4.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[2][3]>fin_ang)
+                    for(pos=ini_pos[2][3];pos>=fin_ang;pos--)
+                    {
+                      L_4.write(pos);delay(dly);
+                    }
+                    ini_pos[2][3]=fin_ang;break;
+                  }
+        case '5':{
+                    if(ini_pos[2][4]==fin_ang) break;
+                    else if(ini_pos[2][4]<fin_ang)
+                    for(pos=ini_pos[2][4];pos<=fin_ang;pos++)
+                    {
+                      L_5.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[2][4]>fin_ang)
+                    for(pos=ini_pos[2][4];pos>=fin_ang;pos--)
+                    {
+                      L_5.write(pos);delay(dly);
+                    }
+                    ini_pos[2][4]=fin_ang;break;
+                  }
+        case '6': {
+                    if(ini_pos[2][5]==fin_ang) break;
+                    else if(ini_pos[2][5]<fin_ang)
+                    for(pos=ini_pos[2][5];pos<=fin_ang;pos++)
+                    {
+                      L_6.write(pos);delay(dly);
+                    }
+                    else if(ini_pos[2][5]>fin_ang)
+                    for(pos=ini_pos[2][5];pos>=fin_ang;pos--)
+                    {
+                      L_6.write(pos);delay(dly);
+                    }
+                    ini_pos[2][5]=fin_ang;break;
+                  }
       }
     }
   }
 }
 
+  void moveleg(int leg, int dir)
+  {
+    if(dir==1)    //FORWARDS
+    switch(leg)
+    {
+      case 1:{movemotor('J',1,150);movemotor('L',1,60);movemotor('B',1,120);movemotor('L',1,120);movemotor('J',1,120);break;}
+      case 2:{movemotor('J',2,150);movemotor('L',2,60);movemotor('B',2,120);movemotor('L',2,120);movemotor('J',2,120);break;}
+      case 3:{movemotor('J',3,150);movemotor('L',3,60);movemotor('B',3,120);movemotor('L',3,120);movemotor('J',3,120);break;}
+      case 4:{movemotor('J',4,150);movemotor('L',4,60);movemotor('B',4,120);movemotor('L',4,120);movemotor('J',4,120);break;}
+      case 5:{movemotor('J',5,150);movemotor('L',5,60);movemotor('B',5,120);movemotor('L',5,120);movemotor('J',5,120);break;}
+      case 6:{movemotor('J',6,150);movemotor('L',6,60);movemotor('B',6,120);movemotor('L',6,120);movemotor('J',6,120);break;}
+    }
+    else if(dir==0)     //BACKWARDS
+    switch(leg)
+    {
+      case 1:{movemotor('J',1,150);movemotor('L',1,60);movemotor('B',1,-120);movemotor('L',1,120);movemotor('L',1,120);break;}
+      case 2:{movemotor('J',2,150);movemotor('L',2,60);movemotor('B',2,-120);movemotor('L',2,120);movemotor('L',2,120);break;}
+      case 3:{movemotor('J',3,150);movemotor('L',3,60);movemotor('B',3,-120);movemotor('L',3,120);movemotor('L',3,120);break;}
+      case 4:{movemotor('J',4,150);movemotor('L',4,60);movemotor('B',4,-120);movemotor('L',4,120);movemotor('L',4,120);break;}
+      case 5:{movemotor('J',5,150);movemotor('L',5,60);movemotor('B',5,-120);movemotor('L',5,120);movemotor('L',5,120);break;}
+      case 6:{movemotor('J',6,150);movemotor('L',6,60);movemotor('B',6,-120);movemotor('L',6,120);movemotor('L',6,120);break;}
+    }
+  }
 
 void initialpos()
 {
@@ -89,7 +346,7 @@ void initialpos()
         B_4.write(pos);
         B_5.write(pos);
         B_6.write(pos);
-        delay(5);                    
+        delay(dly);                    
       } 
       for(i=0;i<6;i++)
       ini_pos[0][i]=initiateB;
@@ -104,7 +361,7 @@ void initialpos()
         J_4.write(pos);
         J_5.write(pos);
         J_6.write(pos);
-        delay(5);                    
+        delay(dly);                    
       } 
       for(i=0;i<6;i++)
       ini_pos[1][i]=initiateJ;
@@ -120,7 +377,7 @@ void initialpos()
         L_4.write(pos);
         L_5.write(pos);
         L_6.write(pos);
-        delay(5);                    
+        delay(dly);                    
       } 
       for(i=0;i<6;i++)
       ini_pos[2][i]=initiateL;
@@ -129,12 +386,13 @@ void initialpos()
 
   void gait33()   //3+3 Gait Generation
   {
-    
+   /*Description: Three Legs move forward, three legs stay stationary. Holding and moving in a V formation */
   }
 
   void gait51()   //5+1 Gait Generation
   {
-    
+   /*Description: One Leg moves forward, five legs stay stationary. All legs move sequeniallly. */ 
+   moveleg(1,1);
   }
 
   void gait42()   //4+2 Gait Generation
