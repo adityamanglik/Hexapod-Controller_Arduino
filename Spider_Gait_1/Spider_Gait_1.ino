@@ -31,7 +31,7 @@
   int initiateB=90,initiateJ=130,initiateL=150;   //Stable Angle Values
   int ini_pos[3][6]={90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90};        //Declaration Of Initial(Current) Position Array
 
-  int i=0,j=0,pos=0,dly=3;   //Declaration of Delay Value
+  int i=0,j=0,pos=0,dly=20;   //Declaration of Delay Value
 
 
  
@@ -390,33 +390,108 @@ Serial.println("Initialising Motors...........");
   {
    /*Description: Three Legs move forward, three legs stay stationary. Holding and moving in a V formation. Moves forward by the specified no of steps. */
    stablepos();   //Stabilizing position before commencing gait
-   
+   int pos=0;
    while(no_of_steps)
    {
    {
     
-    moveleg(1,1,120);
-    moveleg(4,1,120);       //Commencement of Gait
-    moveleg(6,1,120);
+//    moveleg(1,1,120);
+//    moveleg(4,1,120);       //Commencement of Gait
+//    moveleg(6,1,120);
+      Serial.println("Lifting Joints");
+      for(pos=ini_pos[1][0];pos<=130;pos++)
+      {J_1.write(pos);J_4.write(pos);J_6.write(pos);delay(dly);}
+      Serial.println("Lifting Legs");
+      for(pos=ini_pos[2][0];pos<=90;pos++)
+      {L_1.write(pos);L_4.write(pos);L_6.write(pos);delay(dly);}
+      Serial.println("Moving Body");
+      for(pos=ini_pos[0][0];pos<=120;pos++)
+      {B_1.write(pos);B_4.write(pos);B_6.write(pos);ini_pos[0][0]=120;ini_pos[0][3]=120;ini_pos[0][5]=120;delay(dly);}
+      Serial.println("Replacing Legs");
+      for(pos=90;pos>=ini_pos[2][0];pos--)
+      {L_1.write(pos);L_4.write(pos);L_6.write(pos);delay(dly);}
+      Serial.println("Replacing Joints");
+      for(pos=130;pos>=ini_pos[1][0];pos--)
+      {J_1.write(pos);J_4.write(pos);J_6.write(pos);delay(dly);}
+      
+
    }
+
    if(no_of_steps>0)
    {
-   moveleg(3,1,120);
-   moveleg(2,1,120);        //Sustenance Of Gait
-   moveleg(5,1,120);
-   moveleg(1,0,60);
-   moveleg(4,0,60);
-   moveleg(6,0,60);
+//   moveleg(3,1,120);
+//   moveleg(2,1,120);        //Sustenance Of Gait
+//   moveleg(5,1,120);
+    Serial.println("Lifting Joints");
+    for(pos=ini_pos[1][2];pos<=130;pos++)
+    {J_3.write(pos);J_2.write(pos);J_5.write(pos);delay(dly);}
+    Serial.println("Lifting Legs");
+    for(pos=ini_pos[2][2];pos<=90;pos++)
+    {L_3.write(pos);L_2.write(pos);L_5.write(pos);delay(dly);}
+    Serial.println("Moving Body");
+    for(pos=ini_pos[0][2];pos<=120;pos++)
+    {B_3.write(pos);B_2.write(pos);B_5.write(pos);ini_pos[0][1]=120;ini_pos[0][4]=120;ini_pos[0][2]=120;delay(dly);}
+    Serial.println("Replacing Legs");
+    for(pos=90;pos>=ini_pos[2][2];pos--)
+    {L_3.write(pos);L_2.write(pos);L_5.write(pos);delay(dly);}
+    Serial.println("Replacing Joints");
+    for(pos=130;pos>=ini_pos[1][2];pos--)
+    {J_3.write(pos);J_2.write(pos);J_5.write(pos);delay(dly);}
+    
+   
+//   moveleg(1,1,60);
+//   moveleg(4,1,60);
+//   moveleg(6,1,60);
+
+    for(pos=ini_pos[1][0];pos<=130;pos++)
+    {J_1.write(pos);J_4.write(pos);J_6.write(pos);delay(dly);}
+    for(pos=ini_pos[2][0];pos<=90;pos++)
+    {L_1.write(pos);L_4.write(pos);L_6.write(pos);delay(dly);}
+    for(pos=ini_pos[0][0];pos>=60;pos--)
+    {B_1.write(pos);B_4.write(pos);B_6.write(pos);ini_pos[0][0]=60;ini_pos[0][3]=60;ini_pos[0][5]=60;delay(dly);}
+    for(pos=90;pos>=ini_pos[2][2];pos--)
+    {L_1.write(pos);L_4.write(pos);L_6.write(pos);delay(dly);}
+    for(pos=130;pos>=ini_pos[1][2];pos--)
+    {J_1.write(pos);J_4.write(pos);J_6.write(pos);delay(dly);}
+    
    no_of_steps*=-1;
    }
    else
    {
-   moveleg(1,1,120);
-   moveleg(4,1,120);        //Sustenance Of Gait
-   moveleg(6,1,120);
-   moveleg(3,0,60);
-   moveleg(2,0,60);
-   moveleg(5,0,60);
+   //moveleg(1,1,120);
+   //moveleg(4,1,120);        //Sustenance Of Gait
+   //moveleg(6,1,120);
+
+    for(pos=ini_pos[1][0];pos<=130;pos++)
+    {J_1.write(pos);J_4.write(pos);J_6.write(pos);delay(dly);}
+    for(pos=ini_pos[2][0];pos<=90;pos++)
+    {L_1.write(pos);L_4.write(pos);L_6.write(pos);delay(dly);}
+    for(pos=ini_pos[0][0];pos<=120;pos++)
+    {B_1.write(pos);B_4.write(pos);B_6.write(pos);ini_pos[0][0]=120;ini_pos[0][3]=120;ini_pos[0][5]=120;delay(dly);}
+    for(pos=90;pos>=ini_pos[2][0];pos--)
+    {L_1.write(pos);L_4.write(pos);L_6.write(pos);delay(dly);}
+    for(pos=130;pos>=ini_pos[1][0];pos--)
+    {J_1.write(pos);J_4.write(pos);J_6.write(pos);delay(dly);}
+    
+    
+   
+   //moveleg(3,1,60);
+   //moveleg(2,1,60);
+   //moveleg(5,1,60);
+
+    for(pos=ini_pos[1][2];pos<=130;pos++)
+    {J_3.write(pos);J_2.write(pos);J_5.write(pos);delay(dly);}
+    for(pos=ini_pos[2][2];pos<=90;pos++)
+    {L_3.write(pos);L_2.write(pos);L_5.write(pos);delay(dly);}
+    for(pos=ini_pos[0][2];pos>=60;pos--)
+    {B_3.write(pos);B_2.write(pos);B_5.write(pos);ini_pos[0][1]=60;ini_pos[0][2]=60;ini_pos[0][4]=60;delay(dly);}
+    for(pos=90;pos>=ini_pos[2][2];pos--)
+    {L_3.write(pos);L_2.write(pos);L_5.write(pos);delay(dly);}
+    for(pos=130;pos>=ini_pos[1][2];pos--)
+    {J_3.write(pos);J_2.write(pos);J_5.write(pos);delay(dly);}
+    
+    
+   
    no_of_steps*=-1; 
    }
    if(no_of_steps>0) no_of_steps--; else no_of_steps++;
@@ -508,7 +583,8 @@ void setup()
   J_6.attach(2);
 //testall();           //Tests all motors from 0-90
 stablepos();      //RESETTING MOTOR AT BEGINNING OF PROGRAM TO STABLE STANDING POSITION
-//gait33();
+//gait51();
+gait33(10);
 int count=1;
 //for(;count<=6;count++)
 //{
