@@ -28,10 +28,10 @@
 
 
 
-  int initiateB=90,initiateJ=120,initiateL=150;   //Stable Angle Values
+  int initiateB=90,initiateJ=130,initiateL=150;   //Stable Angle Values
   int ini_pos[3][6]={90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90};        //Declaration Of Initial(Current) Position Array
 
-  int i=0,j=0,pos=0,dly=10;   //Declaration of Delay Value
+  int i=0,j=0,pos=0,dly=3;   //Declaration of Delay Value
 
 
  
@@ -197,12 +197,12 @@ void movemotor(char ident1,int ident2,int fin_ang)    //Moves Motor, Identified 
                     else if(ini_pos[1][4]<fin_ang)
                     for(pos=ini_pos[1][4];pos<=fin_ang;pos++)
                     {
-                      J_5.write(190 -pos);delay(dly);
+                      J_5.write(160 -pos);delay(dly);
                     }
                     else if(ini_pos[1][4]>fin_ang)
                     for(pos=ini_pos[1][4];pos>=fin_ang;pos--)
                     {
-                      J_5.write(220-pos);delay(dly);
+                      J_5.write(160-pos);delay(dly);
                     }
                     ini_pos[1][4]=fin_ang;break;
                   }
@@ -211,12 +211,12 @@ void movemotor(char ident1,int ident2,int fin_ang)    //Moves Motor, Identified 
                     else if(ini_pos[1][5]<fin_ang)
                     for(pos=ini_pos[1][5];pos<=fin_ang;pos++)
                     {
-                      J_6.write(pos);delay(dly);
+                      J_6.write(pos-20);delay(dly);
                     }
                     else if(ini_pos[1][5]>fin_ang)
                     for(pos=ini_pos[1][5];pos>=fin_ang;pos--)
                     {
-                      J_6.write(pos);delay(dly);
+                      J_6.write(pos-20);delay(dly);
                     }
                     ini_pos[1][5]=fin_ang;break;
                   }
@@ -386,20 +386,66 @@ Serial.println("Initialising Motors...........");
       
  }
 
-  void gait33()   //3+3 Gait Generation
+  void gait33(int no_of_steps)   //3+3 Gait Generation
   {
-   /*Description: Three Legs move forward, three legs stay stationary. Holding and moving in a V formation */
+   /*Description: Three Legs move forward, three legs stay stationary. Holding and moving in a V formation. Moves forward by the specified no of steps. */
+   stablepos();   //Stabilizing position before commencing gait
+   
+   while(no_of_steps)
+   {
+   {
+    
+    moveleg(1,1,120);
+    moveleg(4,1,120);       //Commencement of Gait
+    moveleg(6,1,120);
+   }
+   if(no_of_steps>0)
+   {
+   moveleg(3,1,120);
+   moveleg(2,1,120);        //Sustenance Of Gait
+   moveleg(5,1,120);
+   moveleg(1,0,60);
+   moveleg(4,0,60);
+   moveleg(6,0,60);
+   no_of_steps*=-1;
+   }
+   else
+   {
+   moveleg(1,1,120);
+   moveleg(4,1,120);        //Sustenance Of Gait
+   moveleg(6,1,120);
+   moveleg(3,0,60);
+   moveleg(2,0,60);
+   moveleg(5,0,60);
+   no_of_steps*=-1; 
+   }
+   if(no_of_steps>0) no_of_steps--; else no_of_steps++;
+  }
   }
 
   void gait51()   //5+1 Gait Generation
   {
    /*Description: One Leg moves forward, five legs stay stationary. All legs move sequeniallly, in a clockwise manner. */ 
-   moveleg(1,1,90);
+   stablepos();   //Stabilizing position before commencing gait
+   int count,j;
+   for(count=1;count<7;count++)         //Initial Gait Pickup
+   {
+    moveleg(count,1,120);   //Move one motor Forward
+    for(j=count-1;j>=0;j--) //Move already moved motors backward in small steps, one step, propelling entire structure forward
+    moveleg(j+1,0,10);
+   }
+   for(count=1;count<7;count++)         //Gait Sustenance
+   {
+    moveleg(count,1,120);   //Move one motor Forward
+    for(j=1;j<=6;j++) //Move already moved motors backward in small steps, one step each time, propelling entire structure forward
+    moveleg(j,0,10);
+   }
   }
 
   void gait42()   //4+2 Gait Generation
   {
   /*Description: 2 legs move forward at a time, 4 held stationary. Leg pairs move from forward to backward.*/  
+  
   }
 
   void testall()    //Testing all motors for proper working 
@@ -461,16 +507,17 @@ void setup()
   J_5.attach(26);
   J_6.attach(2);
 //testall();           //Tests all motors from 0-90
-//stablepos();      //RESETTING MOTOR AT BEGINNING OF PROGRAM TO STABLE STANDING POSITION
+stablepos();      //RESETTING MOTOR AT BEGINNING OF PROGRAM TO STABLE STANDING POSITION
+//gait33();
 int count=1;
-for(;count<=6;count++)
-{
-  Serial.println("Test Move forwards");moveleg(count,1,120);
-}
-for(;count<=6;count++)
-{
-  Serial.println("Test Move Backwards");moveleg(count,0,90);
-}
+//for(;count<=6;count++)
+//{
+//  Serial.println("Test Move forwards");moveleg(count,1,120);
+//}
+//for(count=1;count<=6;count++)
+//{
+//  Serial.println("Test Move Backwards");moveleg(count,0,90);
+//}
 
 
 }
