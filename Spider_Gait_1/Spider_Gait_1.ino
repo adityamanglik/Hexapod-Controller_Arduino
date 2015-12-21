@@ -28,10 +28,12 @@
 
 
 
-  int initiateB=90,initiateJ=120,initiateL=150;   //Initial Angle Values
-  int ini_pos[3][6]={0,0,0,0,0,0,90,90,90,90,90,90,90,90,90,90,90,90};        //Declaration Of Initial(Current) Position Array
+  int initiateB=90,initiateJ=120,initiateL=150;   //Stable Angle Values
+  int ini_pos[3][6]={90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90};        //Declaration Of Initial(Current) Position Array
 
   int i=0,j=0,pos=0,dly=10;   //Declaration of Delay Value
+
+
  
   
 void movemotor(char ident1,int ident2,int fin_ang)    //Moves Motor, Identified and by the Given Angle
@@ -46,8 +48,9 @@ void movemotor(char ident1,int ident2,int fin_ang)    //Moves Motor, Identified 
                     if(ini_pos[0][0]==fin_ang) break;
                     else if(ini_pos[0][0]<fin_ang)
                     for(pos=ini_pos[0][0];pos<=fin_ang;pos++)
-                    {
-                      B_1.write(pos);delay(dly);
+                    {                      
+                      B_1.write(pos);
+                      delay(dly);
                     }
                     else if(ini_pos[0][0]>fin_ang)
                     for(pos=ini_pos[0][0];pos>=fin_ang;pos--)
@@ -75,12 +78,12 @@ void movemotor(char ident1,int ident2,int fin_ang)    //Moves Motor, Identified 
                     else if(ini_pos[0][2]<fin_ang)
                     for(pos=ini_pos[0][2];pos<=fin_ang;pos++)
                     {
-                      B_3.write(pos-10);delay(dly);
+                      B_3.write(190-pos);delay(dly);
                     }
                     else if(ini_pos[0][2]>fin_ang)
                     for(pos=ini_pos[0][2];pos>=fin_ang;pos--)
                     {
-                      B_3.write(pos-10);delay(dly);
+                      B_3.write(190-pos);delay(dly);
                     }
                     ini_pos[0][2]=fin_ang;break;
                   }
@@ -89,12 +92,12 @@ void movemotor(char ident1,int ident2,int fin_ang)    //Moves Motor, Identified 
                     else if(ini_pos[0][3]<fin_ang)
                     for(pos=ini_pos[0][3];pos<=fin_ang;pos++)
                     {
-                      B_4.write(pos);delay(dly);
+                      B_4.write(180-pos);delay(dly);
                     }
                     else if(ini_pos[0][3]>fin_ang)
                     for(pos=ini_pos[0][3];pos>=fin_ang;pos--)
                     {
-                      B_4.write(pos);delay(dly);
+                      B_4.write(180-pos);delay(dly);
                     }
                     ini_pos[0][3]=fin_ang;break;
                   }
@@ -103,12 +106,12 @@ void movemotor(char ident1,int ident2,int fin_ang)    //Moves Motor, Identified 
                     else if(ini_pos[0][4]<fin_ang)
                     for(pos=ini_pos[0][4];pos<=fin_ang;pos++)
                     {
-                      B_5.write(pos);delay(dly);
+                      B_5.write(180-pos);delay(dly);
                     }
                     else if(ini_pos[0][4]>fin_ang)
                     for(pos=ini_pos[0][4];pos>=fin_ang;pos--)
                     {
-                      B_5.write(pos);delay(dly);
+                      B_5.write(180-pos);delay(dly);
                     }
                     ini_pos[0][4]=fin_ang;break;
                   }
@@ -312,33 +315,36 @@ void movemotor(char ident1,int ident2,int fin_ang)    //Moves Motor, Identified 
   }
 }
 
-  void moveleg(int leg, int dir)          //Moves a Selected Leg Forward or Backward
+
+
+  void moveleg(int leg, int dir,int angle)          //Moves a Selected Leg Forward or Backward, by a specified angle
   {
     if(dir==1)    //FORWARDS
     switch(leg)
-    {
-      case 1:{movemotor('J',1,150);movemotor('L',1,60);movemotor('B',1,120);movemotor('L',1,120);movemotor('J',1,120);break;}
-      case 2:{movemotor('J',2,150);movemotor('L',2,60);movemotor('B',2,120);movemotor('L',2,120);movemotor('J',2,120);break;}
-      case 3:{movemotor('J',3,150);movemotor('L',3,60);movemotor('B',3,120);movemotor('L',3,120);movemotor('J',3,120);break;}
-      case 4:{movemotor('J',4,150);movemotor('L',4,60);movemotor('B',4,120);movemotor('L',4,120);movemotor('J',4,120);break;}
-      case 5:{movemotor('J',5,150);movemotor('L',5,60);movemotor('B',5,120);movemotor('L',5,120);movemotor('J',5,120);break;}
-      case 6:{movemotor('J',6,150);movemotor('L',6,60);movemotor('B',6,120);movemotor('L',6,120);movemotor('J',6,120);break;}
+    { Serial.println("Moving Leg Forwards");
+      case 1:{Serial.println("Moving Leg");movemotor('J',1,150);movemotor('L',1,60);movemotor('B',1,angle);stablelj();break;}
+      case 2:{Serial.println("Moving Leg");movemotor('J',2,150);movemotor('L',2,60);movemotor('B',2,angle);stablelj();break;}
+      case 3:{Serial.println("Moving Leg");movemotor('J',3,150);movemotor('L',3,60);movemotor('B',3,angle);stablelj();break;}
+      case 4:{Serial.println("Moving Leg");movemotor('J',4,150);movemotor('L',4,60);movemotor('B',4,angle);stablelj();break;}
+      case 5:{Serial.println("Moving Leg");movemotor('J',5,150);movemotor('L',5,60);movemotor('B',5,angle);stablelj();break;}
+      case 6:{Serial.println("Moving Leg");movemotor('J',6,150);movemotor('L',6,60);movemotor('B',6,angle);stablelj();break;}
     }
     else if(dir==0)     //BACKWARDS
     switch(leg)
-    {
-      case 1:{movemotor('J',1,150);movemotor('L',1,60);movemotor('B',1,-120);movemotor('L',1,120);movemotor('L',1,120);break;}
-      case 2:{movemotor('J',2,150);movemotor('L',2,60);movemotor('B',2,-120);movemotor('L',2,120);movemotor('L',2,120);break;}
-      case 3:{movemotor('J',3,150);movemotor('L',3,60);movemotor('B',3,-120);movemotor('L',3,120);movemotor('L',3,120);break;}
-      case 4:{movemotor('J',4,150);movemotor('L',4,60);movemotor('B',4,-120);movemotor('L',4,120);movemotor('L',4,120);break;}
-      case 5:{movemotor('J',5,150);movemotor('L',5,60);movemotor('B',5,-120);movemotor('L',5,120);movemotor('L',5,120);break;}
-      case 6:{movemotor('J',6,150);movemotor('L',6,60);movemotor('B',6,-120);movemotor('L',6,120);movemotor('L',6,120);break;}
+    {Serial.println("Moving Leg Backwards");
+      case 1:{Serial.println("Moving Leg");movemotor('J',1,150);movemotor('L',1,60);movemotor('B',1,180-angle);stablelj();break;}
+      case 2:{Serial.println("Moving Leg");movemotor('J',2,150);movemotor('L',2,60);movemotor('B',2,180-angle);stablelj();break;}
+      case 3:{Serial.println("Moving Leg");movemotor('J',3,150);movemotor('L',3,60);movemotor('B',3,180-angle);stablelj();break;}
+      case 4:{Serial.println("Moving Leg");movemotor('J',4,150);movemotor('L',4,60);movemotor('B',4,180-angle);stablelj();break;}
+      case 5:{Serial.println("Moving Leg");movemotor('J',5,150);movemotor('L',5,60);movemotor('B',5,180-angle);stablelj();break;}
+      case 6:{Serial.println("Moving Leg");movemotor('J',6,150);movemotor('L',6,60);movemotor('B',6,180-angle);stablelj();break;}
     }
   }
 
-void stablepos()
+
+
+void stablepos()        //Setting Motors to Initial Stable Angle
 {
-//Setting Motors to Initial Stable Angle
 Serial.println("Initialising Motors...........");
       for(i=1; i<=6; i+= 1)
       {                                  
@@ -348,18 +354,14 @@ Serial.println("Initialising Motors...........");
       } 
       for(i=0;i<6;i++)
       ini_pos[0][i]=initiateB;
-    
-      
 
-      for(i=1; i<=6; i+= 1)
-      { 
-        Serial.println("Initialising Joint Motors...");                                 
-        movemotor('J',i,initiateJ);    //Joint   
-       
-      } 
-      for(i=0;i<6;i++)
-      ini_pos[1][i]=initiateJ;
-     
+      stablelj();
+    
+ }
+
+      void stablelj()
+ {   
+
       for(i=1; i<=6; i+= 1)
       {                                  
         Serial.println("Initialising Leg Motors...");
@@ -369,7 +371,19 @@ Serial.println("Initialising Motors...........");
       for(i=0;i<6;i++)
     
       ini_pos[2][i]=initiateL;
-    
+
+
+      
+      for(i=1; i<=6; i+= 1)
+      { 
+        Serial.println("Initialising Joint Motors...");                                 
+        movemotor('J',i,initiateJ);    //Joint   
+       
+      } 
+      for(i=0;i<6;i++)
+      ini_pos[1][i]=initiateJ;
+     
+      
  }
 
   void gait33()   //3+3 Gait Generation
@@ -379,16 +393,16 @@ Serial.println("Initialising Motors...........");
 
   void gait51()   //5+1 Gait Generation
   {
-   /*Description: One Leg moves forward, five legs stay stationary. All legs move sequeniallly. */ 
-   moveleg(1,1);
+   /*Description: One Leg moves forward, five legs stay stationary. All legs move sequeniallly, in a clockwise manner. */ 
+   moveleg(1,1,90);
   }
 
   void gait42()   //4+2 Gait Generation
   {
-  /*Description; Currently Unknown.*/  
+  /*Description: 2 legs move forward at a time, 4 held stationary. Leg pairs move from forward to backward.*/  
   }
 
-  void testall()
+  void testall()    //Testing all motors for proper working 
   {
     int temp[3][6];
     for(i=0;i<3;i++)        //Copying initial values of angles to temporary matrix, to be restored later
@@ -408,7 +422,7 @@ Serial.println("Initialising Motors...........");
     movemotor('L',1,90);
     movemotor('L',2,90);
     movemotor('L',3,90);
-    movemotor('L',4,90);
+    movemotor('L',4,90);          //Testing Motor movements
     movemotor('L',5,90);
     movemotor('L',6,90);
     movemotor('J',1,90);
@@ -424,7 +438,8 @@ Serial.println("Initialising Motors...........");
   }
 
 void setup() 
-{ Serial.begin(9600);
+{ 
+  Serial.begin(9600);
   B_1.attach(52);
   B_2.attach(46);
   B_3.attach(30);
@@ -446,12 +461,23 @@ void setup()
   J_5.attach(26);
   J_6.attach(2);
 //testall();           //Tests all motors from 0-90
-stablepos();      //RESETTING MOTOR AT BEGINNING OF PROGRAM TO STABLE STANDING POSITION
-//void gait33();          //Move in 3-3 Gait
+//stablepos();      //RESETTING MOTOR AT BEGINNING OF PROGRAM TO STABLE STANDING POSITION
+int count=1;
+for(;count<=6;count++)
+{
+  Serial.println("Test Move forwards");moveleg(count,1,120);
+}
+for(;count<=6;count++)
+{
+  Serial.println("Test Move Backwards");moveleg(count,0,90);
+}
+
+
 }
 
 
 void loop() 
 {
   //void initialpos();
+  //void gait33();          //Move in 3-3 Gait
 }
